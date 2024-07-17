@@ -13,9 +13,9 @@ const { uploadImage } = require("../../../middlewares/multer");
 // Route to get a list of items
 
 // Route to get a specific item by ID
-
+router.get("/", browse);
 // Route to add a new item
-router.post("/add",add);
+router.post("/add", uploadImage, add);
 
 /* ************************************************************************* */
 

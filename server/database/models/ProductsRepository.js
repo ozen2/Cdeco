@@ -3,22 +3,26 @@ const AbstractRepository = require("./AbstractRepository");
 class ProductsRepository extends AbstractRepository {
   constructor() {
     // Call the constructor of the parent class (AbstractRepository)
-    // and pass the table name "item" as configuration
+    // and pass the table name "product" as configuration
     super({ table: "product" });
   }
 
   // The C of CRUD - Create operation
 
   async create(product) {
-    // Execute the SQL INSERT query to add a new item to the "item" table
-    console.log(product);
-    const [result] = await this.database.query(
-      `insert into ${this.table} (name, details, materials, price, picture) values (?, ?, ?, ?, ?)`,
-      [product.name, product.details, product.materials, product.price, product.picture]
-    );
+    try {
+      // Execute the SQL INSERT query to add a new item to the "product" table
+      const [result] = await this.database.query(
+        `INSERT INTO ${this.table} (name, details, materials, dimensions, price, picture) VALUES (?, ?, ?, ?, ?, ?)`,
+        [product.name, product.details, product.materials, product.dimensions, product.price, product.picture]
+      );
+      // Return the ID of the newly inserted item
+      return result.insertId;
+    } catch (err) {
+      // Log any errors
 
-    // Return the ID of the newly inserted item
-    return result.insertId;
+      throw err;
+    }
   }
 
   // The Rs of CRUD - Read operations
@@ -26,7 +30,7 @@ class ProductsRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await this.database.query(
-      `select name, details, materials, price, picture from ${this.table} where id = ?`,
+      `SELECT name, details, materials, dimensions, price, picture FROM ${this.table} WHERE id = ?`,
       [id]
     );
 
@@ -35,8 +39,10 @@ class ProductsRepository extends AbstractRepository {
   }
 
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all items from the "item" table
-    const [rows] = await this.database.query(`select name, details, materials, price, picture from ${this.table}`);
+    // Execute the SQL SELECT query to retrieve all items from the "product" table
+    const [rows] = await this.database.query(
+      `SELECT name, details, materials, dimensions, price, picture FROM ${this.table}`
+    );
 
     // Return the array of items
     return rows;
