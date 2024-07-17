@@ -1,19 +1,20 @@
 const AbstractRepository = require("./AbstractRepository");
 
-class ItemRepository extends AbstractRepository {
+class ProductsRepository extends AbstractRepository {
   constructor() {
     // Call the constructor of the parent class (AbstractRepository)
     // and pass the table name "item" as configuration
-    super({ table: "item" });
+    super({ table: "product" });
   }
 
   // The C of CRUD - Create operation
 
-  async create(item) {
+  async create(product) {
     // Execute the SQL INSERT query to add a new item to the "item" table
+    console.log(product);
     const [result] = await this.database.query(
-      `insert into ${this.table} (title, user_id) values (?, ?)`,
-      [item.title, item.user_id]
+      `insert into ${this.table} (name, details, materials, price, picture) values (?, ?, ?, ?, ?)`,
+      [product.name, product.details, product.materials, product.price, product.picture]
     );
 
     // Return the ID of the newly inserted item
@@ -25,7 +26,7 @@ class ItemRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `select name, details, materials, price, picture from ${this.table} where id = ?`,
       [id]
     );
 
@@ -35,7 +36,7 @@ class ItemRepository extends AbstractRepository {
 
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "item" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+    const [rows] = await this.database.query(`select name, details, materials, price, picture from ${this.table}`);
 
     // Return the array of items
     return rows;
@@ -56,4 +57,4 @@ class ItemRepository extends AbstractRepository {
   // }
 }
 
-module.exports = ItemRepository;
+module.exports = ProductsRepository;

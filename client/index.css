@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-family: "Public Sans", sans-serif;
+
+  --background-color: #f4f4e7;
+  --primary-color: #a69990;
+  --secondary-color: #9c7f6f;
+  --tertiary-color: #5b3f2d;
+  --black-color: #0f0f0f;
+}
+
+main {
+  background-color: var(--background-color);
+}
+
+h1 {
+  font-family: var(--font-family);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--tertiary-color);
+}
