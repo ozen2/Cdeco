@@ -8,6 +8,7 @@ import fetchApi from "./services/fetchApi";
 import App from "./App";
 import AdminAddProduct from "./pages/AdminAddProduct";
 import Home from "./pages/Home";
+import ProductsList from "./pages/ProductsList";
 
 const productsUrl = "/api/products";
 
@@ -22,8 +23,12 @@ const router = createBrowserRouter([
       {
         path: "/addProduct",
         element: <AdminAddProduct />,
-        loader: () => fetchApi(productsUrl),
       },
+      {
+        path:"/productsList",
+        element: <ProductsList/>,
+        loader: () => fetchApi(productsUrl),
+      }
     ],
   },
 ]);

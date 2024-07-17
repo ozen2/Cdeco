@@ -60,11 +60,11 @@ function AdminAddProduct() {
         />
         <InputAdd
           handleChange={handleImageChange}
-          value={formData.image}
-          id="image"
+          value={formData.picture}
+          id="picture"
           label="Image"
           type="file"
-          name="image"
+          name="picture"
           placeholder="Selectionnez une image..."
           accept="image/*"
         />

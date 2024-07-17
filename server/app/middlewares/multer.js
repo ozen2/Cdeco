@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const uploadImage = (req, res, next) => {
-  upload.single("image")(req, res, (err) => {
+  upload.single("picture")(req, res, (err) => {
     if (err) {
       console.error("Error uploading file:", err);
       return res.status(400).send("Error uploading file.");
@@ -25,6 +25,7 @@ const uploadImage = (req, res, next) => {
       console.warn("No file uploaded");
       return res.status(400).send("No file uploaded.");
     }
+    req.body.picture = req.file.filename;
     next();
   });
 };

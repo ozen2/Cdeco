@@ -39,7 +39,7 @@ const useLogicForm = () => {
       formDataToSend.append(key, value);
     });
     if (image) {
-      formDataToSend.append("image", image);
+      formDataToSend.append("picture", image);
     }
 
     // Convert FormData to an object for logging
