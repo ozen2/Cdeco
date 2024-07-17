@@ -18,7 +18,7 @@ export default function InputAdd({
       {label}
       {type === "textarea" ? (
         <textarea
-          className="h-64 border-2 w-56 rounded-md outline-[var(--primary-color)] px-2 py-2 text-[var(--text-color)]"
+          className="h-64 border-2 w-56 md:w-96 rounded-md outline-[var(--primary-color)] px-2 py-2 text-[var(--black-color)]"
           id={id}
           name={name}
           onChange={handleChange}
@@ -27,7 +27,7 @@ export default function InputAdd({
         />
       ) : (
         <input
-          className="h-12 border-2 w-56 outline-[var(--primary-color)] rounded-lg px-2 text-[var(--black-color)]"
+          className="h-12 border-2 w-56 md:w-96 outline-[var(--primary-color)] rounded-lg px-2 text-[var(--black-color)]"
           id={id}
           name={name}
           type={type}
@@ -44,8 +44,8 @@ InputAdd.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.oneOf(["string", "number"]).isRequired,
-  type: PropTypes.oneOf(["text", "textarea"]).isRequired,
+  value: PropTypes.oneOf(["string", "number", "file"]).isRequired,
+  type: PropTypes.oneOf(["text", "number", "textarea", "file"]).isRequired,
   handleChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
   accept: PropTypes.string,

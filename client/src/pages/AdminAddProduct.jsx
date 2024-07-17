@@ -1,17 +1,17 @@
-import { useLoaderData } from "react-router-dom";
 import InputAdd from "../components/InputAdd";
 import useLogicForm from "../services/useLogicForm";
 
 function AdminAddProduct() {
-  const { formData, handleChange, handleSubmitProduct } = useLogicForm();
+  const { formData, handleChange, handleSubmitProduct, handleImageChange } = useLogicForm();
 
   return (
     <main className="flex flex-col gap-10 min-h-screen">
-      <h1 className="text-center text-3xl">Ajoutez votre produit</h1>
+      <h1 className="text-center text-3xl md:text-6xl">Ajoutez votre produit</h1>
       <form
         id="addProduct"
         method="POST"
         className="flex flex-col gap-10 items-center"
+        onSubmit={handleSubmitProduct}
       >
         <InputAdd
           handleChange={handleChange}
@@ -33,6 +33,15 @@ function AdminAddProduct() {
         />
         <InputAdd
           handleChange={handleChange}
+          value={formData.dimensions}
+          id="dimensions"
+          label="Dimensions de l'objet"
+          type="text"
+          name="dimensions"
+          placeholder="Entrez les dimensions de l'objet..."
+        />
+        <InputAdd
+          handleChange={handleChange}
           value={formData.materials}
           id="materials"
           label="Matériaux utilisés"
@@ -50,7 +59,7 @@ function AdminAddProduct() {
           placeholder="Entrez le prix..."
         />
         <InputAdd
-          handleChange={handleChange}
+          handleChange={handleImageChange}
           value={formData.image}
           id="image"
           label="Image"
@@ -59,6 +68,9 @@ function AdminAddProduct() {
           placeholder="Selectionnez une image..."
           accept="image/*"
         />
+        <button className="mb-10" type="submit">
+          ok
+        </button>
       </form>
     </main>
   );
