@@ -41,7 +41,7 @@ class ProductsRepository extends AbstractRepository {
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "product" table
     const [rows] = await this.database.query(
-      `SELECT name, details, materials, dimensions, price, picture FROM ${this.table}`
+      `SELECT id, name, details, materials, dimensions, price, picture FROM ${this.table}`
     );
 
     // Return the array of items

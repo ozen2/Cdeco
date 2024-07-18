@@ -10,7 +10,7 @@ const useLogicForm = () => {
     details: "",
     materials: "",
     dimensions: "",
-    price: 0,
+    price: null,
   });
 
   const navigate = useNavigate();
@@ -42,15 +42,10 @@ const useLogicForm = () => {
       formDataToSend.append("picture", image);
     }
 
-    // Convert FormData to an object for logging
-    const formDataObject = Object.fromEntries(formDataToSend.entries());
-    console.log(formDataObject);
-
     try {
       const response = await sendProduct(productsUrl, formDataToSend, "POST");
-      console.log(response);
-      const data = await response.json();
       navigate("/");
+      const data = await response.json();
       return data;
     } catch (err) {
       return err;

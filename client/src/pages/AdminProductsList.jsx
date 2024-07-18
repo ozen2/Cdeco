@@ -1,11 +1,10 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom"
 
-function ProductsList() {
-  const products = useLoaderData();
-
+function AdminProductsList() {
+  const productsData = useLoaderData();
   return (
-    <main className="flex flex-col gap-10 min-h-screen">
-      {products.map((product) => (
+    <main>
+      {productsData.map((product) => (
         <section key={product.id}>
           {product.picture && (
             <img
@@ -18,11 +17,13 @@ function ProductsList() {
           <p>{product.materials}</p>
           <p>{product.dimensions}</p>
           <p>{product.price}€</p>
-          <Link to={`/product/${product.id}`}>Détails</Link>
+          <Link to={`/admin/product/${product.id}`}>Détails</Link>
+          <Link to={`/admin/product/edit/${product.id}`}>Modifier</Link>
+          <button>Supprimer</button>
         </section>
       ))}
     </main>
   );
 }
 
-export default ProductsList;
+export default AdminProductsList;
