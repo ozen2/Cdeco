@@ -35,33 +35,42 @@ const read = async (req, res, next) => {
 };
 
 // The E of BREAD - Edit (Update) operation
-// This operation is not yet implemented
+const edit = async (req, res, next) => {
+  try {
+    const product = await tables.product.update(req.body, req.params.id);
+    res.json(product);
+  } catch (err) {
+    next(err);
+  }
+};
 
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
   // Extract the item data from the request body
   const product = req.body;
-
   try {
-    // Insert the item into the database
     const insertId = await tables.product.create(product);
-
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted item
     res.status(201).json({ insertId });
   } catch (err) {
-    // Pass any errors to the error-handling middleware
     next(err);
   }
 };
 
 // The D of BREAD - Destroy (Delete) operation
-// This operation is not yet implemented
+const destroy = async (req, res, next) => {
+  try {
+    await tables.product.delete(req.params.id);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+};
 
 // Ready to export the controller functions
 module.exports = {
   browse,
   read,
-  // edit,
+  edit,
   add,
-  // destroy,
+  destroy,
 };

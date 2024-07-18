@@ -27,11 +27,12 @@ CREATE TABLE member (
 CREATE TABLE product (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   name VARCHAR(80) NOT NULL,
-  details VARCHAR(255) NOT NULL,
+  details TEXT NOT NULL,
   dimensions VARCHAR(80) NOT NULL,
   materials VARCHAR(80) NOT NULL,
   price VARCHAR(80) NOT NULL,
-  picture LONGTEXT
+  picture LONGTEXT,
+  path TEXT
 );
 
 CREATE TABLE comment (

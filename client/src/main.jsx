@@ -12,6 +12,7 @@ import ProductsList from "./pages/ProductsList";
 import ProductPage from "./pages/ProductPage";
 import AdminProductsList from "./pages/AdminProductsList";
 import AdminProduct from "./pages/AdminProduct";
+import AdminProductEdit from "./pages/AdminProductEdit";
 
 const productsUrl = "/api/products";
 
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/admin/product/edit/:id",
-        element: <AdminProduct />,
+        element: <AdminProductEdit />,
         loader: ({ params }) => fetchApi(`${productsUrl}/${params.id}`),
       },
     ],

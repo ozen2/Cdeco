@@ -9,7 +9,8 @@ export default function InputAdd({
   handleChange,
   placeholder,
   accept,
-}) {
+})
+{
   return (
     <label
       className="flex flex-col gap-2 text-[var(--tertiary-color)] font-medium"

@@ -14,7 +14,13 @@
   --black-color: #0f0f0f;
 }
 
-main {
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+body {
   background-color: var(--background-color);
 }
 

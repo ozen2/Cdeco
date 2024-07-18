@@ -1,4 +1,6 @@
+const { log } = require("console");
 const multer = require("multer");
+
 const path = require("path");
 
 // Configuration de Multer pour utiliser diskStorage
@@ -9,7 +11,10 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     // Construire le nom du fichier avec son nom d'origine et l'extension d'origine
-    cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`);
+    cb(
+      null,
+      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+    );
   },
 });
 
@@ -25,7 +30,9 @@ const uploadImage = (req, res, next) => {
       console.warn("No file uploaded");
       return res.status(400).send("No file uploaded.");
     }
+    
     req.body.picture = req.file.filename;
+    req.body.path = req.file.path;
     next();
   });
 };

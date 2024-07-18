@@ -13,14 +13,13 @@ class ProductsRepository extends AbstractRepository {
     try {
       // Execute the SQL INSERT query to add a new item to the "product" table
       const [result] = await this.database.query(
-        `INSERT INTO ${this.table} (name, details, materials, dimensions, price, picture) VALUES (?, ?, ?, ?, ?, ?)`,
-        [product.name, product.details, product.materials, product.dimensions, product.price, product.picture]
+        `INSERT INTO ${this.table} (name, details, materials, dimensions, price, picture, path) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [product.name, product.details, product.materials, product.dimensions, product.price, product.picture, product.path]
       );
       // Return the ID of the newly inserted item
       return result.insertId;
     } catch (err) {
-      // Log any errors
-
+      console.error("Error in create function:", err); // Added log
       throw err;
     }
   }
@@ -30,7 +29,7 @@ class ProductsRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific item by its ID
     const [rows] = await this.database.query(
-      `SELECT name, details, materials, dimensions, price, picture FROM ${this.table} WHERE id = ?`,
+      `SELECT id, name, details, materials, dimensions, price, picture, path FROM ${this.table} WHERE id = ?`,
       [id]
     );
 
@@ -41,7 +40,7 @@ class ProductsRepository extends AbstractRepository {
   async readAll() {
     // Execute the SQL SELECT query to retrieve all items from the "product" table
     const [rows] = await this.database.query(
-      `SELECT id, name, details, materials, dimensions, price, picture FROM ${this.table}`
+      `SELECT id, name, details, materials, dimensions, price, picture, path FROM ${this.table}`
     );
 
     // Return the array of items
@@ -51,12 +50,28 @@ class ProductsRepository extends AbstractRepository {
   // The U of CRUD - Update operation
   // TODO: Implement the update operation to modify an existing item
 
-  // async update(item) {
-  //   ...
-  // }
+  async update(product) {
+    const [result] = await this.database.query(
+      `UPDATE ${this.table} SET name = ?, details = ?, materials = ?, dimensions = ?, price = ?, picture = ?, path = ? WHERE id = ?`,
+      [product.name, product.details, product.materials, product.dimensions, product.price, product.picture, product.path, product.id]
+    );
+    return result.affectedRows;
+  }
 
   // The D of CRUD - Delete operation
   // TODO: Implement the delete operation to remove an item by its ID
+
+  async delete(id) {
+    try {
+      const [result] = await this.database.query(
+        `DELETE FROM ${this.table} WHERE id = ?`,
+        [id]
+      );
+      return result.affectedRows;
+    } catch (err) {
+      throw err;
+    }
+  }
 
   // async delete(id) {
   //   ...

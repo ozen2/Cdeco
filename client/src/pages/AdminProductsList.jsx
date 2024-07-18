@@ -1,7 +1,8 @@
-import { useLoaderData, Link } from "react-router-dom"
+import { useLoaderData, Link } from "react-router-dom";
 
 function AdminProductsList() {
   const productsData = useLoaderData();
+
   return (
     <main>
       {productsData.map((product) => (
@@ -19,7 +20,6 @@ function AdminProductsList() {
           <p>{product.price}€</p>
           <Link to={`/admin/product/${product.id}`}>Détails</Link>
           <Link to={`/admin/product/edit/${product.id}`}>Modifier</Link>
-          <button>Supprimer</button>
         </section>
       ))}
     </main>

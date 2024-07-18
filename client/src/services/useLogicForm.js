@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import sendProduct from "./fetchApi";
+import updateProductFetch from "./fetchApiUpadate";
 
 const useLogicForm = () => {
   const [image, setImage] = useState(null);
+
+  const [path, setPath] = useState(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -16,6 +19,8 @@ const useLogicForm = () => {
   const navigate = useNavigate();
 
   const productsUrl = "/api/products/add";
+  const { id } = useParams();
+  const productsUrlEdit = `/api/products/edit/${id}`;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +36,12 @@ const useLogicForm = () => {
     }
   };
 
+  const handlePathChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setPath(e.target.files[0]);
+    }
+  };
+
   const handleSubmitProduct = async (e) => {
     e.preventDefault();
 
@@ -40,6 +51,10 @@ const useLogicForm = () => {
     });
     if (image) {
       formDataToSend.append("picture", image);
+    }
+
+    for (let pair of formDataToSend.entries()) {
+      console.log(`${pair[0]}: ${pair[1]}`);
     }
 
     try {
@@ -52,11 +67,32 @@ const useLogicForm = () => {
     }
   };
 
+  const handleUpdateProduct = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await updateProductFetch(
+        productsUrlEdit,
+        formData,
+        path,
+        "PUT"
+      );
+      navigate("/admin/productsList");
+      const data = await response.json();
+      return data;
+    } catch (err) {
+      return err;
+    }
+  };
+
   return {
     formData,
+    setFormData,
     handleChange,
     handleImageChange,
+    handlePathChange,
     handleSubmitProduct,
+    handleUpdateProduct,
   };
 };
 
