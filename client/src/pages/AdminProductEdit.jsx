@@ -93,9 +93,9 @@ function AdminProductEdit() {
         <button className="bg-[var(--primary-color)] mb-4 text-white w-20 h-10 rounded-lg" type="submit">Modifier</button>
       </form>
       <div className="flex justify-center">
-        <button className="bg-red-800 text-white w-20 h-10 rounded-lg" onClick={handleChangeModal}>Supprimer</button>
+        <button className="bg-red-800 text-white w-20 h-10 rounded-lg mb-10" onClick={handleChangeModal}>Supprimer</button>
       </div>
-      <DeleteModal className={`${isModalOpen} bg-[var(--tertiary-color)] fixed inset-0 flex flex-col w-3/5 h-64 items-center justify-around m-auto`} handleChangeModal={handleChangeModal} />
+      <DeleteModal className={`${isModalOpen} rounded-lg bg-[var(--secondary-color)] fixed inset-0 flex flex-col w-2/5 h-64 items-center justify-around m-auto`} handleChangeModal={handleChangeModal} />
     </main>
   );
 }
