@@ -68,8 +68,8 @@ function AdminAddProduct() {
           placeholder="Selectionnez une image..."
           accept="image/*"
         />
-        <button className="mb-10" type="submit">
-          ok
+        <button className="bg-[var(--primary-color)] mb-10 text-white w-20 h-10 rounded-lg" type="submit">
+          Ajouter
         </button>
       </form>
     </main>

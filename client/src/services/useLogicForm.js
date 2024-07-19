@@ -6,8 +6,6 @@ import updateProductFetch from "./fetchApiUpadate";
 const useLogicForm = () => {
   const [image, setImage] = useState(null);
 
-  const [path, setPath] = useState(null);
-
   const [formData, setFormData] = useState({
     name: "",
     details: "",
@@ -68,20 +66,61 @@ const useLogicForm = () => {
   };
 
   const handleUpdateProduct = async (e) => {
-    e.preventDefault();
+    if (image) {
+      e.preventDefault();
 
-    try {
-      const response = await updateProductFetch(
-        productsUrlEdit,
-        formData,
-        path,
-        "PUT"
-      );
-      navigate("/admin/productsList");
-      const data = await response.json();
-      return data;
-    } catch (err) {
-      return err;
+      const formDataToSend = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        formDataToSend.append(key, value);
+      });
+
+      if (image) {
+        formDataToSend.append("picture", image);
+      }
+      
+      for (let pair of formDataToSend.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
+
+      try {
+        const response = await sendProduct(
+          productsUrlEdit,
+          formDataToSend,
+          "PUT"
+        );
+        navigate("/admin/productsList");
+        const data = await response.json();
+        return data;
+      } catch (err) {
+        return err;
+      }
+    } else {
+      e.preventDefault();
+
+      const formDataToSend = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        formDataToSend.append(key, value);
+      });
+      if (image) {
+        formDataToSend.append("picture", image);
+      }
+
+      for (let pair of formDataToSend.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
+
+      try {
+        const response = await updateProductFetch(
+          productsUrlEdit,
+          formData,
+          "PUT"
+        );
+        navigate("/admin/productsList");
+        const data = await response.json();
+        return data;
+      } catch (err) {
+        return err;
+      }
     }
   };
 
@@ -90,7 +129,6 @@ const useLogicForm = () => {
     setFormData,
     handleChange,
     handleImageChange,
-    handlePathChange,
     handleSubmitProduct,
     handleUpdateProduct,
   };

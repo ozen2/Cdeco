@@ -14,7 +14,15 @@ class ProductsRepository extends AbstractRepository {
       // Execute the SQL INSERT query to add a new item to the "product" table
       const [result] = await this.database.query(
         `INSERT INTO ${this.table} (name, details, materials, dimensions, price, picture, path) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        [product.name, product.details, product.materials, product.dimensions, product.price, product.picture, product.path]
+        [
+          product.name,
+          product.details,
+          product.materials,
+          product.dimensions,
+          product.price,
+          product.picture,
+          product.path,
+        ]
       );
       // Return the ID of the newly inserted item
       return result.insertId;
@@ -51,11 +59,34 @@ class ProductsRepository extends AbstractRepository {
   // TODO: Implement the update operation to modify an existing item
 
   async update(product) {
-    const [result] = await this.database.query(
-      `UPDATE ${this.table} SET name = ?, details = ?, materials = ?, dimensions = ?, price = ?, picture = ?, path = ? WHERE id = ?`,
-      [product.name, product.details, product.materials, product.dimensions, product.price, product.picture, product.path, product.id]
-    );
-    return result.affectedRows;
+    if (product.picture) {
+      const [result] = await this.database.query(
+        `UPDATE ${this.table} SET name = ?, details = ?, materials = ?, dimensions = ?, price = ?, picture = ? WHERE id = ?`,
+        [
+          product.name,
+          product.details,
+          product.materials,
+          product.dimensions,
+          product.price,
+          product.picture,
+          product.id,
+        ]
+      );
+      return result.affectedRows;
+    } else {
+      const [result] = await this.database.query(
+        `UPDATE ${this.table} SET name = ?, details = ?, materials = ?, dimensions = ?, price = ? WHERE id = ?`,
+        [
+          product.name,
+          product.details,
+          product.materials,
+          product.dimensions,
+          product.price,
+          product.id,
+        ]
+      );
+      return result.affectedRows;
+    }
   }
 
   // The D of CRUD - Delete operation

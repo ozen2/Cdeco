@@ -8,35 +8,25 @@ function AdminProductEdit() {
   const productData = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [imageBlob, setImageBlob] = useState(null);
-
-  useEffect(() => {
-    if (productData.path) {
-      fetch(productData.path)
-        .then((response) => response.blob())
-        .then((blob) => {
-          setImageBlob(blob);
-        })
-        .catch((error) => {
-          console.error("Erreur lors de la conversion du chemin en blob:", error);
-        });
-    }
-  }, [productData.path]);
-
   const handleChangeModal = () => {
     setModalOpen(!modalOpen);
   };
 
   const isModalOpen = modalOpen ? "block" : "hidden";
 
-  const { handleChange, formData, setFormData, handleUpdateProduct, handlePathChange, path } =
-    useLogicForm();
+  const {
+    handleChange,
+    formData,
+    setFormData,
+    handleUpdateProduct,
+    handleImageChange,
+  } = useLogicForm();
 
   useEffect(() => {
-    setFormData(productData);
+    const { picture, path, ...rest } = productData;
+    setFormData(rest);
   }, [productData]);
 
-  console.log(formData.path);
   return (
     <main>
       <form
@@ -91,19 +81,21 @@ function AdminProductEdit() {
           placeholder="Modifier le prix..."
         />
         <InputAdd
-          handleChange={handlePathChange}
-          value={path}
-          id="path"
-          label="Path"
+          handleChange={handleImageChange}
+          value={formData.picture}
+          id="picture"
+          label="Image"
           type="file"
-          name="path"
+          name="picture"
+          placeholder="Selectionnez une image..."
           accept="image/*"
-          placeholder="Modifier le path..."
         />
-        <button type="submit">Modifier</button>
+        <button className="bg-[var(--primary-color)] mb-4 text-white w-20 h-10 rounded-lg" type="submit">Modifier</button>
       </form>
-      <button onClick={handleChangeModal}>Supprimer</button>
-      <DeleteModal className={isModalOpen} />
+      <div className="flex justify-center">
+        <button className="bg-red-800 text-white w-20 h-10 rounded-lg" onClick={handleChangeModal}>Supprimer</button>
+      </div>
+      <DeleteModal className={isModalOpen} handleChangeModal={handleChangeModal} />
     </main>
   );
 }

@@ -8,7 +8,7 @@ function ProductPage() {
     <main>
         <ReturnLink source="/productsList" margin_left="ml-6 mt-8 mb-10" />
       <article className="flex flex-col gap-4 mt-4 md:flex-row">
-        <img className="mx-4 md:mx-6 rounded-md md:w-96" src={`${import.meta.env.VITE_API_URL}/${productData.picture}`} alt={productData.name} />
+        <img className="mx-4 md:mx-6 rounded-md md:w-96 object-cover" src={`${import.meta.env.VITE_API_URL}/${productData.picture}`} alt={productData.name} />
         <ul className="flex flex-col gap-8">
           <li>
             <h1 className="ml-4">{productData.name}</h1>

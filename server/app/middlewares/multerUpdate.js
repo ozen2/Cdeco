@@ -22,10 +22,13 @@ const upload = multer({ storage });
 
 const updateImage = (req, res, next) => {
   upload.single("picture")(req, res, (err) => {
-    
-    req.body.picture = req.file.filename;
-    req.body.path = req.file.path;
-    next();
+    if (req.file) {
+      req.body.picture = req.file.filename;
+      req.body.path = req.file.path;
+      next();
+    } else {
+      next();
+    }
   });
 };
 
