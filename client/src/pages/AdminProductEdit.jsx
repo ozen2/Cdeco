@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import InputAdd from "../components/InputAdd";
 import useLogicForm from "../services/useLogicForm";
 import DeleteModal from "../components/DeleteModal";
@@ -95,7 +95,7 @@ function AdminProductEdit() {
       <div className="flex justify-center">
         <button className="bg-red-800 text-white w-20 h-10 rounded-lg" onClick={handleChangeModal}>Supprimer</button>
       </div>
-      <DeleteModal className={isModalOpen} handleChangeModal={handleChangeModal} />
+      <DeleteModal className={`${isModalOpen} bg-[var(--tertiary-color)] fixed inset-0 flex flex-col w-3/5 h-64 items-center justify-around m-auto`} handleChangeModal={handleChangeModal} />
     </main>
   );
 }

@@ -4,7 +4,7 @@ import deleteProductFetch from "./deleteFetch";
 const deleteProduct = () => {
   const { id } = useParams();
   const deleteProductUrl = `/api/products/delete/${id}`;
-
+  
   const handleDelete = async () => {
     try {
       const response = await deleteProductFetch(deleteProductUrl, "DELETE");
